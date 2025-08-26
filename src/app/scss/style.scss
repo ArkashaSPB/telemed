@@ -1,0 +1,1716 @@
+@import "custom";
+@import "buttons";
+@import "modal";
+
+// Плавная прокрутка для якорных ссылок
+html {
+  scroll-behavior: smooth;
+}
+
+// Отступ для якорных ссылок (чтобы учитывать высоту header)
+#cooperation,
+#who,
+#contacts {
+  scroll-margin-top: 80px;
+  
+  @media (max-width: $screen-lg) {
+    scroll-margin-top: 90px;
+  }
+}
+
+.container{
+  max-width:1360px;
+
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__main {
+    flex: 1; // растягиваем контент, чтобы футер ушёл вниз
+  }
+}
+
+
+
+.main-block-top{
+ padding-left: 0;
+ padding-right: 0;
+  padding-top: 61px;
+  @media (max-width: $screen-lg){
+    padding-top: 74px;
+  }
+  @media (max-width: $screen-sm){
+    padding-top: 0;
+  }
+
+}
+
+
+.main-block {
+  display: grid;
+  gap: 20px;
+
+  // паддинги как у контейнера
+  padding-left: $container-padding-x;
+  padding-right: $container-padding-x;
+
+  @include media-breakpoint-down(sm) {
+    // убираем паддинги на мобилке
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Desktop (по умолчанию) */
+  grid-template-columns: 3fr 2fr;
+  grid-template-areas:
+    "zag   image"
+    "text  image";
+
+  @media (max-width: $screen-lg) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "zag zag"
+      "text image";
+  }
+
+  @media (max-width: $screen-sm) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "image"
+      "zag"
+      "text";
+  }
+
+  &__content {
+    display: block;
+    @media (max-width: $screen-lg) {
+      display: contents;
+    }
+  }
+
+  &__zag {
+    grid-area: zag;
+    padding-left: 0;
+    padding-right:0;
+    h1{margin-top: 9px}
+
+    @media (max-width: $screen-md) {
+      padding-left: $container-padding-x;
+      padding-right: $container-padding-x;
+    }
+  }
+  &__text {
+    grid-area: text;
+    padding-left: 0;
+    padding-right:0;
+
+    @media (max-width: $screen-md) {
+      padding-left: $container-padding-x;
+      padding-right: $container-padding-x;
+    }
+  }
+
+  &__image {
+    grid-area: image;
+    div {
+      background-image: url('/main/main.jpg'); // путь от public/
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+      width: 487px;
+      height: 456px;
+      border-radius: 20px;
+
+      @media (max-width: $screen-lg) {
+        width: 100%;
+        height: 274px;
+      }
+      @media (max-width: $screen-sm) {
+        width: 100%;
+        height: 338px;
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+
+
+.block-header{
+  border-bottom: 1px solid #D9D9D9;
+  padding: 15px 0 17px 0;
+  
+  // Sticky header стили
+  &.position-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #fff;
+
+  }
+  
+  @media (max-width: $screen-lg) {
+    padding:0;
+  }
+  .top{
+    @media (max-width: $screen-sm) {
+      padding-right:0;
+      padding-left:0;
+    }
+  }
+}
+
+.sot-block-top{
+  padding: 89px 0 0 ;
+  @media (max-width: $screen-lg) {
+    padding: 78px 0 0 ;
+  }
+  @media (max-width: $screen-sm) {
+    padding: 43px 0 0 ;
+  }
+}
+
+.sot-block {
+  display: grid;
+  gap: 20px;
+  /* Desktop (по умолчанию) */
+  grid-template-columns: 3fr 2fr;
+  grid-template-areas:
+    "zag   image"
+    "text  image";
+
+
+  /* Tablet */
+  @media (max-width: $screen-lg) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "zag  zag"
+      "text image";
+  }
+
+  /* Mobile */
+  @media (max-width: $screen-sm) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+
+      "zag"
+      "text"
+      "image";
+  }
+
+  /* Обёртка, чтобы её дети стали grid-элементами */
+  &__content {
+    @media (max-width: $screen-xl) {
+      display: contents; // как у main-block
+    }
+  }
+
+  &__zag  { grid-area: zag; }
+  &__text { grid-area: text; }
+
+  &__images {
+    grid-area: image;
+
+
+
+    > div {
+      background-image: url('/main/sot.jpg'); // путь от public/
+      background-size: cover;   // чтобы заполняло без пустот
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 20px;
+      overflow: hidden;
+
+      /* Адаптивный размер коробки */
+      width: 100%;
+      aspect-ratio: 534 / 557; // примерно как твои исходные размеры
+
+      /* Если хочешь ограничить ширину на десктопе */
+      @media (min-width: $screen-lg) {
+        max-width: 534px;
+        /* высота посчитается из aspect-ratio */
+      }
+
+      /* Подправим высоты на брейкпоинтах, если нужно фиксировать */
+      @media (max-width: $screen-lg) {
+        /* оставляем width:100%; высота идёт из aspect-ratio */
+      }
+
+      @media (max-width: $screen-sm) {
+        width: 100%;
+        border-radius: 0; // как в main-block на мобиле
+      }
+    }
+  }
+}
+
+
+
+h1{
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 115%;
+  @media (max-width: $screen-lg) {
+    font-size: 38px;
+  }
+  @media (max-width: $screen-sm) {
+    font-size: 28px;
+  }
+}
+
+h2{
+  font-size: 42px;
+  font-weight: 600;
+  @media (max-width: $screen-lg) {
+    font-size: 36px;
+  }
+  @media (max-width: $screen-sm) {
+    font-size: 24px;
+  }
+}
+
+.bg-main-fon-about{
+  background-color: $bg-fon1;
+  padding: 55px 80px 19px 58px;
+  border-radius:  20px;
+  margin-bottom: 20px;
+  @media (max-width: $screen-lg) {
+    padding: 28px  36px 19px ;
+  }
+  @media (max-width: $screen-sm) {
+    padding: 20px  17px 14px ;
+    margin-bottom: 8px;
+  }
+}
+
+.bg-main-fon{
+  background-color: $bg-fon1;
+  border-radius:  20px;
+  padding: 35px 41px 56px;
+
+  @media (max-width: $screen-lg) {
+    padding: 25px 21px;
+  }
+
+  @media (max-width: $screen-sm) {
+    padding: 14px 16px;
+  }
+
+
+}
+
+.maincards__block{
+  &__image{
+    height: 284px;
+    @media (max-width: $screen-lg) {
+      height: 268px;
+    }
+    @media (max-width: $screen-md) {
+      height: 240px;
+    }
+    @media (max-width: $screen-sm) {
+      height: 151px;
+    }
+  }
+}
+.maincards-setka-main{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 51px;
+  row-gap: 35px;
+
+  @media (max-width: $screen-lg) {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 25px;
+    row-gap: 20px;
+  }
+  @media (max-width: $screen-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: $screen-sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.maincards{
+  text-align: center;
+  &__image {
+    height: 284px;
+    overflow: hidden;
+
+    @media (max-width: $screen-lg) {
+      height: 256px;
+    }
+    @media (max-width: $screen-sm) {
+      height: 151px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;       // обрежет лишнее
+      object-position: center; // центрирует
+      display: block;          // убирает нижний пробел от inline
+    }
+  }
+
+  &__title{
+    padding-top: 11px ;
+    font-size: 20px;
+    font-weight: 600;
+    @media (max-width: $screen-lg) {
+      font-size: 16px;
+    }
+    @media (max-width: $screen-sm) {
+      font-size: 14px;
+    }
+
+  }
+  &__subtitle{
+    padding: 7px 10px 34px;
+    font-size: 18px;
+    @media (max-width: $screen-sm) {
+      font-size: 14px;
+      padding: 2px 4px  17px ;
+    }
+    @media (max-width: $screen-sm) {
+
+    }
+
+  }
+
+  &__block {
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+    text-decoration: none;
+    color:#000 ;
+
+
+    &:hover{
+      cursor: pointer;
+      box-shadow: 0 4px 20px 0 rgba(177, 200, 223, 1);
+      .maincards__title {
+        color: $primary;
+
+      }
+      .maincards__subtitle {
+        color: #9A9797;
+
+      }
+    }
+  }
+}
+
+.mainpartner{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 29px;
+  row-gap: 29px;
+  text-align: left;
+  @media (max-width: $screen-lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: $screen-md) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+
+  &__title{
+    padding: 18px 24px 0;
+    font-size: 20px;
+    line-height: 100%;
+    font-weight: 600;
+  }
+  &__subtitle{
+    padding: 6px 24px 23px;
+    font-size: 16px;
+    line-height: 110%;
+  }
+
+  &__img{
+    height: 191px;
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;      // обрезает лишнее, но заполняет
+      object-position: center; // центрирует
+    }
+  }
+
+
+  &__block {
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+
+
+  }
+}
+
+
+
+.item-sw{
+  background-color: #F3F8FD;
+  width: 252px;
+  height: 145px;
+  border-radius:  20px;
+}
+
+
+//свайпер
+
+/* Обёртка и стрелки */
+.logos-wrap { position: relative; }
+.logo-card { background:#f3f9ff; border-radius:22px; padding:28px; }
+
+/* Стили встроенных стрелок (необязательно) */
+.swiper-button-prev, .swiper-button-next {
+  width:44px; height:44px; border-radius:50%;
+  border:2px solid rgba(0,205,251,.35);
+  background:#fff; color:#00CDFB;
+}
+.swiper-button-prev::after, .swiper-button-next::after { font-size:16px; }
+.swiper-button-disabled { opacity:.35; }
+
+
+//бургер
+
+.burger-cust{
+
+  display: none;
+  @media (max-width: $screen-lg) {
+    width:52px;
+    height:52px;
+    background: $primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 11px;
+    cursor: pointer;
+    margin-left: 10px;
+
+    div{
+      background: #fff;
+      height:3px;
+      width: 35px;
+    }
+  }
+
+  @media (max-width: $screen-sm) {
+    width:48px;
+    height:48px;
+    div{
+      height:3px;
+      width: 30px;
+    }
+  }
+
+}
+
+.main-link2{
+
+  text-decoration: none;
+  color: $black-color;
+  font-size: 16px;
+  &:hover{
+    color: $primary-hover;
+  }
+}
+
+
+.main-link{
+  padding: 10px;
+  text-decoration: none;
+  color: $black-color;
+  font-size: 18px;
+  &:hover{
+    color: $primary-hover;
+  }
+}
+.logo-main{
+  img{
+    height: 46px;
+
+    @media (max-width: $screen-xl) {
+      height: 40px;
+    }
+    @media (max-width: $screen-xl) {
+      height: 28px;
+    }
+  }
+
+
+  @media (max-width: $screen-sm) {
+    margin-left: 10px;
+  }
+
+
+
+  span{
+    font-size: 36px;
+    color: $black-color;
+    text-transform: uppercase;
+    font-weight: 500;
+    @media (max-width: $screen-md) {
+      font-size: 24px;
+    }
+    @media (max-width: $screen-sm) {
+      font-size: 16px;
+    }
+  }
+
+}
+
+.logo-main-b{
+  font-size: 36px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.phone-main{
+  font-size: 20px;
+  font-weight: bold;
+  color: $black-color;
+  text-decoration: none;
+  margin-right: 40px ;
+
+  @media (max-width: $screen-sm) {
+    font-size: 14px;
+    margin-right: 0;
+  }
+
+
+}
+.auth-main{
+  color: $black-color;
+  text-decoration: none;
+}
+
+.art-link{
+  color: #92CBCC;
+  a{
+    color: #92CBCC;
+  }
+}
+.custom-form {
+  background-color: #fff;
+  padding: 6px 34px 19px 34px;
+  border-radius: 15px;
+  color: #000;
+
+  textarea {
+    width: 100%;
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
+
+    &::placeholder {
+      color: #9A9797;   // цвет плейсхолдера
+      opacity: 1;       // чтобы не был полупрозрачным в некоторых браузерах
+    }
+
+    &:focus,
+    &:active {
+      border: none;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+
+  input {
+    width: 100%;
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
+
+    &::placeholder {
+      color: #9A9797;   // цвет плейсхолдера
+      opacity: 1;       // чтобы не был полупрозрачным в некоторых браузерах
+    }
+
+    &:focus,
+    &:active {
+      border: none;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+.fon-zayavka{
+  background-color: #155959;
+  background-image: url("/footer/feedback.jpg") ;
+  padding: 60px 0;
+  background-size:  auto 100%;
+  background-position: top center ;
+}
+
+.zayavka-block{
+  display: grid;
+  width: 100%;
+  margin: 0 auto;
+  grid-template-columns: auto auto;
+  grid-template-areas: "left right";
+  align-items: start;
+  gap: 68px;
+
+  @media (max-width: $screen-lg) {
+    grid-template-columns: repeat(2 , 1fr);
+    width: 100%;
+    grid-template-areas: "left right";
+  }
+
+  @media (max-width: $screen-md) {
+    grid-template-columns: repeat(2 , 1fr);
+    width: 100%;
+    grid-template-areas: "left right";
+  }
+  @media (max-width: $screen-sm) {
+    grid-template-columns: repeat(1 , 1fr);
+    width: 100%;
+    grid-template-areas: "left" "right";
+  }
+
+  &__text{
+    color: #fff;
+    grid-area: left;
+    padding-left: 80px;
+    h2{
+      font-size: 50px;
+      font-weight: 500;
+    }
+    p{
+      width: 80%;
+      margin-top: 35px;
+      font-size: 20px;
+      font-weight: 600;
+      @media (max-width: 768px) {
+        width: auto;
+      }
+    }
+
+    @media (max-width: $screen-lg) {
+      padding-left: 0;
+    }
+
+    @media (max-width: $screen-sm) {
+      padding-left: 0;
+    }
+
+
+  }
+
+
+  &__form {
+    width: 473px;
+    grid-area: right;
+    margin-right: 148px;
+    box-sizing: border-box;
+    @media (max-width: $screen-lg) {
+      width: 100%;
+      margin-left: auto;
+    }
+
+    @media (max-width: $screen-lg) {
+      margin-right: 0px;
+    }
+
+    @media (max-width: $screen-sm) {
+      margin-right: 0px;
+    }
+
+  }
+}
+
+.breadcrumb-cus{
+  padding-top: 30px;
+  padding-bottom: 35px;
+  font-size: 18px;
+  color: #9A9797; // серый цвет текста
+  @media (max-width: $screen-sm) {
+    padding-top: 29px;
+    padding-bottom: 17px;
+    font-size: 14px;
+  }
+  ol {
+    list-style: none;
+    display: flex;
+    gap: 5px;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+
+    &::after {
+      content: "—"; // по умолчанию длинное тире
+      margin: 0 0 0 5px;
+      color: #B9B9B9;
+    }
+
+    &:last-child::after {
+      content: none; // у последнего элемента убираем всегда
+    }
+
+    @media (max-width: $screen-md) {
+      &::after {
+        content: "—"; // или "/" — любой символ разделителя
+        margin: 0 .3rem;
+      }
+
+      &:last-child::after {
+        content: none; // и на мобилке тоже не показываем у последнего
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+      transition: color .2s;
+
+      &:hover {
+        color: #000;
+      }
+    }
+
+    &[aria-current="page"] {
+      font-weight: 500;
+    }
+  }
+
+}
+
+.about-block{
+  display: grid;
+  grid-template-columns: auto 434px;
+  gap: 50px;
+  
+  &__image {
+    width: 434px;
+    height: 557px;
+    overflow: hidden; // обрезаем лишнее
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block; // убираем отступы от inline
+      border-radius: 20px;
+    }
+  }
+
+  @media (max-width: $screen-lg) {
+    grid-template-columns: 1fr;
+    
+    &__right {
+      width: 100%;
+      height: 512px;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        border-radius: 20px;
+      }
+    }
+  }
+
+  @media (max-width: $screen-sm) {
+    &__right {height: 241px;}
+
+
+  }
+
+
+}
+
+.block-submit{
+  display:grid;
+  grid-template-columns: 1fr 189fr;
+  grid-template-areas: "button check";
+  gap: 12px 24px;
+
+  &__button  {
+    grid-area: button;
+    @media (max-width: 768px){display: grid}
+  }
+  &__check{
+    grid-area: check;
+    display:flex;  gap:8px;
+
+    .info-check{
+      color: #fff;
+      font-size: 14px;
+      line-height: 110%;
+    }
+  }
+
+  @media (max-width: 768px){
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "check"
+      "button";  // чекбокс сверху, кнопка снизу
+  }
+}
+.service{
+  margin-top: 58px;
+  @media (max-width: $screen-lg) {
+    margin-top: 81px;
+  }
+  @media (max-width: $screen-sm) {
+    margin-top: 46px;
+  }
+  h2{
+    padding-bottom: 32px;
+    @media (max-width: $screen-lg) {
+      margin-top: 16px;
+    }
+  }
+}
+
+
+.block-p{
+  margin-bottom: 34px;
+}
+
+.sog-form-service {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap:17px;
+  grid-template-areas:
+    "left right";
+
+
+  @media (max-width: $screen-sm) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    "right"
+    "left";
+  }
+
+  &__button{
+    @media (max-width: $screen-sm) {
+      display: grid;
+    }
+
+  }
+
+  &__left {
+    grid-area: left;
+    display: grid;
+  }
+
+  &__right {
+    grid-area: right;
+    display:flex;  gap:8px;
+
+    .info-check{
+      font-size: 14px;
+      line-height: 110%;
+    }
+  }
+}
+
+.right-service-block{
+
+  border-radius: 20px;
+  overflow: hidden;
+  &__images{
+    height: 364px;
+    @media (max-width: $screen-lg) {
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    @media (max-width: $screen-sm) {
+      display: none;
+    }
+  }
+  &__form{
+
+
+
+    background-color: #F3F8FD;
+    padding: 36px 66px 35px 59px;
+
+    @media (max-width: $screen-lg) {
+      border-radius: 20px;
+    }
+
+    @media (max-width: $screen-sm) {
+      padding: 36px 21px;
+    }
+    h3{
+      font-size: 30px;
+      font-weight: 600;
+      text-align: center;
+      padding-bottom: 20px;
+      @media (max-width: $screen-lg) {
+        font-size: 36px;
+
+      }
+
+    }
+  }
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   // обрезает, но заполняет всё
+     // если нужно скругление
+    display: block;
+
+  }
+}
+
+.services-detail{
+  padding: 26px 0 39px 0;
+  display: grid;
+  grid-template-columns: 767fr 562fr;
+  gap: 59px;
+  @media (max-width: $screen-lg) {
+    grid-template-columns: 1fr;
+  }
+
+  &__left{
+
+  }
+
+}
+.history-block{
+  display: grid;
+  grid-template-columns: 938fr 333fr;
+  gap: 93px;
+
+  @media (max-width: $screen-md) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  &__left{
+    display: grid;
+    column-gap: 51px;
+    row-gap: 35px;
+
+
+
+
+  }
+
+  &__right > div{
+    @media (max-width: $screen-md) {
+      display: none;
+    }
+  }
+}
+
+
+
+.service-block{
+  display: grid;
+  grid-template-columns: 938fr 333fr;
+  gap: 93px;
+
+  padding: 37px 0 28px;
+
+  @media (max-width: $screen-lg) {
+    gap: 10px;
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: $screen-sm) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  &__cards{
+    display: grid;
+    padding: 23px 0 0;
+    column-gap: 51px;
+    row-gap: 35px;
+    grid-template-columns: repeat(3, 1fr);
+
+    @media (max-width: $screen-lg) {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 25px;
+      row-gap: 20px;
+    }
+    @media (max-width: $screen-md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: $screen-sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+  }
+
+  &__right > div{
+    @media (max-width: $screen-lg) {
+      display: none;
+    }
+  }
+}
+.right-auth{
+  background: #F3F8FD;
+  padding: 39px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-radius: 20px;
+}
+.bg-balans{
+  background: #D0E1F3;
+  padding: 11px ;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.sog{
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+.auth-right{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  &__left{
+    flex-grow: 1;
+    border-radius: 15px;
+    background: #D0E1F3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+}
+
+
+.quiz-fon{
+  border: 1px solid #99C0C9;
+  border-radius: 15px;
+  padding:  10px 30px;
+  box-sizing: border-box;
+}
+.block-quiz{
+  width: 360px;
+  margin: 20px auto;
+}
+
+.block-quiz-text{
+  width: 700px;
+  margin: 20px auto;
+  @media (max-width: $screen-xl) {
+    width: 100%;
+  }
+}
+
+.quiz-textarea{
+  background: none;
+  border: 1px solid #99C0C9;
+  border-radius: 20px;
+  padding: 20px 30px;
+  // убираем стандартные стили фокуса
+  &:focus,
+  &:focus-visible,
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #99C0C9; // оставляем ту же рамку при фокусе
+  }
+  &::placeholder {
+    color: #9A9797;
+    opacity: 1; // чтобы в Safari не был бледнее
+    font-size: 18px;
+  }
+}
+
+
+.bg-block-quiz{
+  border-radius: 20px;
+  background: #F3F8FD;
+  min-height: 500px;
+  padding: 47px 74px;
+   @media (max-width: $screen-lg) {
+     padding: 47px 31px;
+   }
+  @media (max-width: $screen-sm) {
+    padding: 47px 31px;
+  }
+
+}
+
+
+.zaq-block-chips{
+  font-size: 24px;
+  font-weight: bold;
+  padding: 15px 0 31px;
+}
+
+.quiz-zag{
+
+  text-align: center ;
+
+  @media (max-width: $screen-sm) {
+
+  }
+  >div{
+    text-align: left;
+    padding-top: 23px;
+    font-size: 18px;
+  }
+}
+.quiz{
+  color: #717171;
+  font-size: 18px;
+}
+.quiz-tablet{
+  width: 1065px;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 21px;
+  @media (max-width: $screen-xl) {
+    width: 100%;
+  }
+
+  > div{
+    text-align: center;
+    border: 1px solid #CDCDCD;
+    padding: 20px 0 ;
+    font-size: 24px;
+    @media (max-width: $screen-lg) {
+      font-size: 20px;
+    }
+    @media (max-width: $screen-sm) {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: $screen-lg) {
+    grid-template-columns: repeat(3,1fr);
+  }
+  @media (max-width: $screen-sm) {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+}
+
+.width-quiz-block{
+  width: 335px;
+  box-sizing: border-box;
+  margin: 0 auto;
+
+  &__buttons{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.quiz-input-number{
+  font-size: 100px !important;
+  color: $color-quiz;
+  background: none;
+  border: none;
+  text-align: center;
+  // убираем стандартные стили фокуса
+
+  // убираем стандартные стрелочки (Chrome, Safari, Edge)
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  // убираем стрелочки (Firefox)
+  -moz-appearance: textfield;
+
+  &:focus,
+  &:focus-visible,
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #99C0C9; // оставляем ту же рамку при фокусе
+  }
+}
+
+.circle-btn {
+  width: 47px;
+  height: 47px;
+  border: 1px solid #80c0c8;   // цвет обводки круга
+  border-radius: 50%;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+
+
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 43%;
+    width: 12px;
+    height: 12px;
+    border-top: 1px solid #80c0c8;   // цвет стрелки
+    border-right: 1px solid #80c0c8;
+    transform: translate(-50%, -50%) rotate(45deg); // поворот под углом
+  }
+
+  &:hover {
+    border-color: #0099aa;
+  }
+  &.left::after {   // <-- вот так для варианта "влево"
+    transform: translate(-10%, -50%) rotate(-135deg);
+  }
+
+}
+
+.input_other{
+  background: none;
+  border: none;
+  border-bottom: 1px solid #BDBDBD;
+  margin-top: 2px;
+  padding-bottom: 10px;
+  margin-bottom: 22px;
+  &:focus,
+  &:focus-visible,
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #99C0C9; // оставляем ту же рамку при фокусе
+  }
+  &::placeholder {
+    color: #9A9797;
+    opacity: 1; // чтобы в Safari не был бледнее
+    font-size: 18px;
+  }
+}
+
+
+
+.zag-50{
+  width: 50%;
+  @media (max-width: $screen-xl) {
+    width: 100%;
+  }
+}
+.block-block{
+  width: 50%;
+  @media (max-width: $screen-xl) {
+    width: 100%;
+  }
+}
+
+//таблицы
+/* ===== История (Grid) ===== */
+.history-grid-list {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.history-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 2fr 1fr; /* дата | вид | результат */
+  gap: 16px;
+  padding: 14px 18px;
+  background: #fff;
+
+  &.header-g {
+    background: #F3F8FD;
+    font-weight: 600;
+  }
+
+  &.row-g {
+    border-bottom: 1px solid #E6EDF3;
+  }
+
+  .cell {
+    &.date { white-space: nowrap; }
+    &.action { }
+  }
+
+  .muted { color: #8A98A6; font-size: 0.9rem; }
+}
+
+.history-link {
+  color: #00B4D8;
+  text-decoration: underline;
+  &:hover { text-decoration: none; }
+}
+
+/* ===== Адаптив ===== */
+@media (max-width: $screen-lg) { /* lg↓ */
+  .history-grid {
+    grid-template-columns: 1fr 1.6fr .9fr;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: $screen-md) { /* md↓ — превращаем в карточки */
+  .history-grid.header-g { display: none; }
+  .history-grid.row-g {
+    grid-template-columns: 1fr; /* одна колонка */
+    row-gap: 6px;
+    padding: 12px 14px;
+
+    background: #fff;
+  }
+
+  .history-grid .cell.action {
+    text-align: left; /* ссылка вниз под текстом */
+  }
+}
+
+.mini-table {
+  width: 500px;
+  display: grid;
+  grid-template-columns: 1fr 2fr; // две колонки: первая уже, вторая шире
+  > div {
+    padding-bottom: 15px;
+  }
+  @media (max-width: $screen-md) {width: 100%;}
+}
+
+.end-content{
+  height: 100px;
+}
+
+.not-found{
+
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  @media (max-width: $screen-md) {
+    text-align: center;
+  }
+
+  @media (max-width: $screen-md) {
+    grid-template-columns: 1fr;
+  }
+
+
+
+
+
+  h2{
+    font-size: 130px ;
+    color: #00ACD3;
+    @media (max-width: $screen-sm) {
+      font-size: 50px ;
+    }
+  }
+
+  &__top{
+    font-weight: 500;
+    font-size: 22px;
+  }
+
+  @media (max-width: $screen-md) {
+   width: 100%;
+  }
+
+}
+
+
+.balans-item {
+  background: #F3F8FD;
+  display: flex;
+  padding: 17px 45px;
+  border-radius: 20px;
+  margin-bottom: 5px;
+  span:first-child {
+    width: 270px;   // задаёшь чёткую ширину под текст
+  }
+
+  span:last-child {
+    font-weight: 700; // делаем жирным
+  }
+
+}
+
+.site-footer{
+  padding-top: 34px;
+  a{
+    color: #fff;
+    text-decoration: none;
+    &:hover{
+      color: $primary-hover;
+    }
+  }
+
+
+}
+.footer-logo{
+  margin-bottom: 20px;
+  @media (max-width: $screen-md) {
+  }
+  a{
+    display: flex;
+    gap: 7px;
+    justify-content: start;
+    text-decoration: none;
+    @media (max-width: $screen-sm) {
+      justify-content: center;
+    }
+  }
+  img{
+    height: 53px;
+    @media (max-width: $screen-sm) {
+      height: 39px;
+    }
+  }
+}
+
+.footer-text-bold{
+  font-weight: normal  ;
+  text-align: left;
+  font-size: 16px;
+  @media (max-width: $screen-sm) {
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+  }
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 100px;
+  row-gap: 20px;
+
+  margin-bottom: 30px;
+  color: #fff;
+
+
+
+  .link-footer {
+    color: #fff;
+  }
+  a{
+    @media (max-width: $screen-sm){
+      text-decoration: none;
+    }
+  }
+
+  /* Десктоп: 2 3 4 сверху, 1 снизу */
+  grid-template-areas:
+    " one two three four";
+
+
+  &__one   {
+    grid-area: one;
+    @media (max-width: $screen-lg) {
+      text-align: center;
+    }
+  }
+  &__to    { grid-area: two; }
+  &__thri  { grid-area: three; }
+  &__for   {
+    grid-area: four;
+
+
+  }
+
+  /* Планшет: можно сделать две колонки */
+  @media (max-width: $screen-lg) {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+    grid-template-areas:
+      "two three four"
+      "one one one";
+  }
+
+  /* Мобилка: всё в колонку */
+  @media (max-width: $screen-sm) {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+    row-gap: 20px;
+    margin-bottom: 0;
+    grid-template-areas:
+      "two two"
+      "three four"
+      "one one";
+  }
+}
+
+.color-footer-niz{
+  color: #fff;
+  @media (max-width: $screen-sm) {
+    color: #92CBCC;
+  }
+}
+
+.site-footer{
+
+  background-color: #155959;
+  background-image: url("/footer/fon.jpg") ;
+  background-size: auto 100% ;
+  background-position: bottom center ;
+}
+
+.bg-footer-niz{
+  background: #155959;
+  @media (max-width: $screen-sm) {
+    background: none;
+  }
+}
+
+.logos-prev{
+  z-index: 100;
+  position: absolute;
+  top:50%;
+  margin-top:-25px;
+  left: -68px;
+  @media (max-width: $screen-xl) {
+    left: -15px;
+  }
+}
+
+.logos-next{
+  z-index: 100;
+  position: absolute;
+  margin-top:-25px;
+  top:50%;
+  right: -68px;
+  @media (max-width: $screen-xl) {
+    right: -15px;
+  }
+}
+
+.partner-top{
+  padding: 67px 0 90px;
+  h2{
+    padding-bottom: 28px;
+  }
+  @media (max-width: $screen-xl) {
+    padding: 28px 0 66px;
+  }
+  @media (max-width: $screen-xl) {
+    padding: 23px 0 66px;
+  }
+}
+
+.quiz-block-label{
+  border-radius: 15px;
+  padding: 0 37px;
+  border: 1px solid #99C0C9;
+  
+  // Также используем grid для единообразия
+  display: grid;
+  grid-template-columns: 1fr auto; // label растягивается, checkbox по содержимому
+  align-items: center;
+  gap: 8px;
+  
+  .quiz-label-text {
+    // текст будет растягиваться
+  }
+  
+  .form-check {
+    // checkbox будет по содержимому
+  }
+}
+
+.padding-quiz{
+  padding: 16.5px 0;
+}
+
+.quiz-block-label-input{
+  border-radius: 15px;
+  padding: 0 37px;
+  border: 1px solid #99C0C9;
+
+  // Основная сетка для label и checkbox
+  display: grid;
+  grid-template-columns: 1fr auto; // label растягивается, checkbox по содержимому
+  grid-template-areas: 
+    "label checkbox"
+    "input input"; // input занимает всю ширину под ними
+  align-items: center;
+  gap: 8px;
+
+
+  
+  .quiz-label-text {
+    grid-area: label;
+  }
+  
+  .form-check {
+    grid-area: checkbox;
+  }
+  
+  .input_other {
+    grid-area: input;
+    border-radius: 0;
+  }
+}
+
+.content-p{
+   p {margin-bottom: 19px;}
+}
+
+// Стили для HTML контента
+.html-content {
+  margin-bottom: 35px;
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 130%;
+  }
+  
+  h3 {
+    font-size: 24px;
+
+    @media (max-width: $screen-sm) {
+      font-size: 20px;
+    }
+  }
+  
+  p {
+    margin-bottom: 16px;
+    line-height: 150%;
+    font-size: 18px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  ul, ol {
+    margin-bottom: 16px;
+    padding-left: 20px;
+    
+    li {
+      margin-bottom: 8px;
+      line-height: 150%;
+    }
+  }
+  
+  strong, b {
+    font-weight: 600;
+  }
+  
+  em, i {
+    font-style: italic;
+  }
+}

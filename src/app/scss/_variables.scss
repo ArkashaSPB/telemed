@@ -1,0 +1,46 @@
+/* SCSS Variables - должны быть импортированы ПЕРЕД Bootstrap */
+
+/* Переопределяем Bootstrap переменные */
+$font-family-sans-serif: 'Montserrat Alternates', system-ui, -apple-system, "Segoe UI",
+Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+$color-quiz: #1e7b7b;
+$modal-bg: $color-quiz;
+$bs-modal-bg: $color-quiz;
+
+$primary: #00CDFB;
+$primary-hover: #0083BC;
+
+$secondary: #4A4A4A;
+
+$black-color: #000000;
+
+$bg-fon1: #F3F8FD;
+$btn-active-bg: $primary;          
+$btn-active-border-color: $primary;
+$btn-active-color: #fff;
+$btn-focus-box-shadow: 0 0 0 0 rgba(0,0,0,0); 
+$btn-padding-x: 40px;
+$btn-padding-y: 16px;
+
+$screen-xs:   0;
+$screen-sm:   576px;
+$screen-md:   768px;
+$screen-lg:   992px;
+$screen-xl:   1200px;
+$screen-xxl:  1400px;
+
+$border-color: #9A8181;
+
+// Bootstrap form переменные
+$form-check-input-checked-bg-color: $primary;
+$form-check-input-checked-border-color: $primary;
+$form-check-input-checked-color: #fff;
+
+$form-check-input-border-color: #9A8181;
+
+$form-check-input-focus-border: $primary;
+$form-check-input-focus-box-shadow: 0 0 0 0.2rem rgba(34, 204, 255, 0.25);
+
+$bs-form-check-bg-image: none;

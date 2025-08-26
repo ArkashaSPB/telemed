@@ -1,0 +1,225 @@
+// Импортируем переменные ПЕРЕД Bootstrap
+@import "variables";
+
+// Импортируем Bootstrap после переменных
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+/* Подключаем шрифты */
+@font-face {
+  font-family: 'Montserrat Alternates';
+  src: url('/fonts/Montserrat_Alternates/MontserratAlternates-Light.woff2') format('woff2'),
+  url('/fonts/Montserrat_Alternates/MontserratAlternates-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat Alternates';
+  src: url('/fonts/Montserrat_Alternates/MontserratAlternates-Regular.woff2') format('woff2'),
+  url('/fonts/Montserrat_Alternates/MontserratAlternates-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat Alternates';
+  src: url('/fonts/Montserrat_Alternates/MontserratAlternates-Medium.woff2') format('woff2'),
+  url('/fonts/Montserrat_Alternates/MontserratAlternates-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat Alternates';
+  src: url('/fonts/Montserrat_Alternates/MontserratAlternates-SemiBold.woff2') format('woff2'),
+  url('/fonts/Montserrat_Alternates/MontserratAlternates-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat Alternates';
+  src: url('/fonts/Montserrat_Alternates/MontserratAlternates-Bold.woff2') format('woff2'),
+  url('/fonts/Montserrat_Alternates/MontserratAlternates-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+.navbar {
+  @media (max-width: 768px) {
+    --bs-navbar-padding-x: 0 !important;
+  }
+}
+.navbar {
+  @media (max-width: 768px) {
+    --bs-navbar-padding-x: 0;
+    --bs-navbar-padding-y: 0;
+  }
+  .container {
+    @media (max-width: 768px) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .navbar-toggler {
+    height: 100%;
+    border-radius: 0; // если не хочешь скругления
+  }
+}
+
+
+
+/* Базовое для checkbox + radio */
+/* Универсально для checkbox + radio */
+/* общие стили */
+.form-check-input {
+  background-image: none !important;
+  width: 22px !important;
+  height: 22px !important;
+  background-color: transparent !important;
+  border: 1px solid #9A8181 !important;
+  cursor: pointer;
+  margin: 0;
+  box-shadow: none !important;
+}
+
+/* чекбокс — квадрат */
+.form-check-input[type="checkbox"] {
+  border-radius: 0 !important;
+}
+
+/* радио — кружок */
+.form-check-input[type="radio"] {
+  border-radius: 50% !important;
+}
+
+/* выбранное (checked) */
+.form-check-input:checked {
+  background-color: $primary !important; // твой основной цвет
+  border-color: $primary !important;
+}
+
+//range
+
+input[type="range"] {
+  -webkit-appearance: none; /* убираем дефолт */
+  width: 100%;
+  height: 4px;
+  background: #ccc; /* фон линии */
+  border-radius: 2px;
+  outline: none;
+  margin: 10px 0;
+
+  /* Chrome/Safari */
+  &::-webkit-slider-runnable-track {
+    height: 4px;
+    background: #ccc;
+    border-radius: 2px;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: $color-quiz;
+    cursor: pointer;
+    margin-top: -12px; /* выравнивание по центру линии */
+    border: none;
+    transition: 0.2s;
+  }
+
+  &::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+  }
+
+  /* Красим левую часть в Chrome/Safari через градиент */
+  &.with-fill {
+    background: linear-gradient(
+                    to right,
+                    $color-quiz 0%,
+                    $color-quiz calc((var(--val) - var(--min)) / (var(--max) - var(--min)) * 100%),
+                    #ccc calc((var(--val) - var(--min)) / (var(--max) - var(--min)) * 100%),
+                    #ccc 100%
+    );
+  }
+
+  /* Firefox */
+  &::-moz-range-track {
+    height: 4px;
+    background: #ccc;
+    border-radius: 2px;
+  }
+
+  &::-moz-range-progress {
+    height: 4px;
+    background: $color-quiz;
+    border-radius: 2px;
+  }
+
+  &::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: $color-quiz;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+  }
+
+  &::-moz-range-thumb:hover {
+    transform: scale(1.1);
+  }
+
+  /* Edge/IE */
+  &::-ms-track {
+    height: 4px;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+
+  &::-ms-fill-lower {
+    background: $color-quiz;
+    border-radius: 2px;
+  }
+
+  &::-ms-fill-upper {
+    background: #ccc;
+    border-radius: 2px;
+  }
+
+  &::-ms-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: $color-quiz;
+    cursor: pointer;
+    border: none;
+  }
+}
+
+p{
+  line-height: 140%;
+  font-size: 18px;
+  margin-bottom: 0;
+  @media (max-width: $screen-sm){
+    font-size: 16px;
+  }
+}
+a{
+  &:hover{
+    color: $primary-hover;
+  }
+}
+
+
+
+
+
+

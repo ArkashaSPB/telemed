@@ -1,0 +1,115 @@
+
+
+.btn {
+  border-radius: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  line-height: 1.2;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color .2s, border-color .2s, color .2s, transform .12s, box-shadow .2s;
+
+  // общее поведение
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+  &:disabled,
+  &.disabled {
+    opacity: .55;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// миксин для вариаций (цвета и заливка)
+@mixin btn-variant(
+  $color,
+  $bg,
+  $border,
+  $color-hover,
+  $bg-hover,
+  $border-hover,
+  $fill: false,
+  $fill-color: null
+) {
+  color: $color;
+  background-color: $bg;
+  border: if($border == none, none, 1px solid $border);
+  position: relative;
+  overflow: hidden;
+
+  > * { position: relative; z-index: 1; }
+
+  // эффект заливки
+  @if $fill == true {
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: 0;
+      height: 100%;
+      background-color: if($fill-color != null, $fill-color, $bg-hover);
+      border-radius: inherit;
+      transition: width .45s ease;
+    }
+  }
+
+  &:hover:not(:disabled):not(.disabled) {
+    color: $color-hover;
+    border-color: $border-hover;
+
+    @if $fill == true {
+      &::before { width: 100%; }
+    } @else {
+      background-color: $bg-hover;
+    }
+  }
+
+  &:active:not(:disabled):not(.disabled) {
+    transform: scale(.96);
+    box-shadow: none;
+
+    @if $fill == true {
+      &::before {
+        width: 100%;
+        background-color: darken(if($fill-color != null, $fill-color, $bg-hover), 5%);
+      }
+      color: $color-hover;
+    } @else {
+      //background-color: darken($bg-hover, 5%);
+    }
+  }
+}
+
+
+// варианты кнопок
+.btn-primary {
+  @include btn-variant(#fff, $primary, none, #fff, $primary-hover, none, true, $primary-hover);
+}
+
+.btn-outline-primary {
+  @include btn-variant($primary, transparent, $primary, #fff, $primary, $primary, true, $primary);
+}
+
+
+
+.btn-secondary {
+  @include btn-variant($secondary, #fff, $primary, #fff, $primary, $primary, false);
+}
+.btn-outline-secondary {
+  @include btn-variant(
+                  $secondary,    // цвет текста
+                  transparent,   // фон
+                  $border-color,    // бордер
+                  $primary,      // цвет текста при hover
+                  transparent,   // фон при hover (прозрачный)
+                  $primary,      // бордер при hover
+                  false,         // без заливки ::before
+                  $primary       // цвет заливки (не используется, так как fill=false)
+  );
+}
